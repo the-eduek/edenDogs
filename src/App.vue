@@ -1,30 +1,44 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import SearchComponent from './components/SearchComponent.vue';
+import DogItem from './components/DogItem.vue';
+import { onBeforeMount, ref } from '@vue/runtime-core';
+import fetchDogs from './assets/functions/fetchDogs';
+
+const imageUrl = 'https://dog.ceo/api/breeds/image/random/50';
+const dogImages = ref([]);
+
+onBeforeMount(async () => {
+  const response = await Promise.all([
+    fetchDogs(imageUrl),
+    fetchDogs(imageUrl)
+  ]);
+
+  dogImages.value = response.flat();
+});
+
+function getDogName(imgSrc) {
+  return imgSrc.split("/")[4]
+};
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <SearchComponent />
+
+  <section class="wrap">
+    <DogItem 
+      v-for="dogImage in dogImages"
+      :key="getDogName(dogImage)"
+      :imgAlt="getDogName(dogImage)"
+      :imgSrc="dogImage"
+    />
+  </section>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.wrap {
+  display: grid;
+  gap: min(5vw, 3.5rem);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  padding: 0 1.25rem;
 }
 </style>
