@@ -1,51 +1,57 @@
 <script setup>
-import { computed, onBeforeMount, ref, watch } from 'vue';
-import fetchDogs from '../assets/functions/fetchDogs';
+import { computed, onBeforeMount } from 'vue';
+import { useStore } from 'vuex';
 import DogItem from '../components/DogItem.vue';
 import LoadingIndicator from '../components/LoadingIndicator.vue';
 import SearchComponent from '../components/SearchComponent.vue';
 
-const imageUrl = 'https://dog.ceo/api/breeds/image/random/50';
-const dogImages = ref([]);
+// store instance
+const store = useStore();
 
-const isLoaded = computed(() => {
-  return dogImages.value.length <= 0
+// fetch images before page mount
+onBeforeMount(() => {
+  store.dispatch('getDogImages');
 });
 
-
-onBeforeMount(async () => {
-  console.log(isLoaded.value)
-  const response = await Promise.all([
-    fetchDogs(imageUrl),
-    fetchDogs(imageUrl)
-  ]);
-
-  dogImages.value = response.flat();
-});
+// `dogImages` store state as computed property
+const dogImages = computed(() => store.state.dogImages);
 
 function getDogName(imgSrc) {
-  return imgSrc.split("/")[4]
+  return imgSrc.split("/")[4];
 };
 </script>
 
 <template>
-  <section v-if="!isLoaded">
+  <section v-if="dogImages.length > 0">
     <SearchComponent />
 
     <section class="wrap">
       <DogItem 
-        v-for="dogImage in dogImages"
-        :key="getDogName(dogImage)"
+        v-for="(dogImage, index) in dogImages"
+        :key="index"
         :imgAlt="getDogName(dogImage)"
         :imgSrc="dogImage"
       />
     </section>
   </section>
   
-  <LoadingIndicator v-else />
+  <Transition name="fade" mode="in-out">
+    <LoadingIndicator  v-if="dogImages.length < 1" />
+  </Transition>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: 300ms ease-in;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .wrap {
   display: grid;
   gap: min(5vw, 3.5rem);
