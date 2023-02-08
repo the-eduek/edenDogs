@@ -1,7 +1,22 @@
+<script setup>
+import { computed } from "@vue/runtime-core";
+
+// props
+const props = defineProps({
+  isError: {
+    type: Boolean,
+    required: true
+  }
+});
+
+// play/pause an animation if there is/isn't an error 
+const animationState = computed(() => props.isError ? `paused` : `play`);
+</script>
+
 <template>
-  <section class="load">
-    <div class="load__wrap">
-      <div class="load__svg">
+  <section class="info">
+    <div class="info__wrap">
+      <div class="info__svg">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="165px" height="170px" viewBox="0 0 165 170" enable-background="new 0 0 165 170" xml:space="preserve">
           <g id="Page-1">
             <g id="Group-2-Copy-2">
@@ -39,9 +54,14 @@
         </svg>
       </div>  
       
-      <div class="load__text">
-        <p>Loading...</p>
+      <div class="info__text info__text--red" v-if="isError">
+        <p>oops, sorry 🐶</p>
+        <p>there's been an error</p>
       </div>
+
+      <div class="info__text" v-else>
+        <p>loading...</p>
+      </div>      
     </div>
   </section>
 </template>
@@ -51,44 +71,62 @@
 
 @keyframes enlarge {
   from {
-    transform: scale(0.95);
+    transform: scale(1);
   } to {    
-    transform: scale(1.05);
+    transform: scale(1.15);
   }
 }
 
-.load {
-  background-color: rgba($color: $darkGrey, $alpha: 0.15);
-  border-radius: 50%;
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    bottom: 0;
+  }
+}
+
+.info {  
+  background-color: rgba($color: $green, $alpha: 0.15);
+  box-shadow: 0 0.1px 1px rgba($color: $darkGrey, $alpha: 0.5);
+  border-radius: 0.5rem;
   left: 50%;
-  padding: 0.75rem;
+  height: min(50vh,  24.625rem);
+  padding: 1.25rem;
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: fit-content;
+  width: min(80vw, 32rem);
 
   &__wrap {
     align-items: center;
-    background-color: #fff;
-    border-radius: 50%;
-    box-sizing: content-box;
-    display: flex;
-    height: 10rem;
-    justify-content: center;
-    padding: 2rem;
-    width: 11rem;
+    background-color: rgba($color: $green, $alpha: 0.5);
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    padding: 1.25rem;
+    width: fit-content;
   }
 
   &__svg {
     animation: enlarge 700ms ease-in infinite alternate;
+    animation-play-state: v-bind(animationState);
+    display: block;
+    height: 10.625rem;
+    width: 10.625rem;
   }
 
   &__text {
-    font-size: min(2.5rem, 5vw);
-    padding: 25rem 0 0;;
+    font-size: min(2rem, 5vw);
+    padding: 1.25rem 0;
+    bottom: 0;
+    left: 0;
     position: absolute;
     text-align: center;
-    width: max-content;
+    width: 100%;
+
+    &--red {
+      animation: fade-in 500ms cubic-bezier(0.075, 0.82, 0.165, 1) 1 forwards;
+      color: #750b0b;
+      bottom: 100%;
+    }
   }
 }
 </style>

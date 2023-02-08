@@ -45,6 +45,7 @@ const searchText = computed({
 
     input {
       appearance: none;
+      background-color: $bgGreen;
       border: solid $darkGrey;
       border-width: 0 0 1px;
       color: $textGrey;

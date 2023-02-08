@@ -2,8 +2,7 @@
 import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import DogItem from '../components/DogItem.vue';
-import ErrorComponent from '../components/ErrorComponent.vue';
-import LoadingIndicator from '../components/LoadingIndicator.vue';
+import InfoComponent from '../components/InfoComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue';
 
 // store instance
@@ -51,11 +50,17 @@ function filteredImages() {
   </section>
   
   <Transition name="fade" mode="in-out">
-    <LoadingIndicator v-if="dogImages.length < 1 && !errorMessage" />
+    <InfoComponent
+      v-if="dogImages.length < 1 && !errorMessage"
+      :isError="errorMessage" 
+    />
   </Transition>
 
   <Transition name="fade" mode="in-out">
-    <ErrorComponent v-if="errorMessage"/>
+    <InfoComponent    
+      v-if="errorMessage"
+      :isError="errorMessage" 
+    />
   </Transition>
 </template>
 
@@ -63,7 +68,7 @@ function filteredImages() {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 300ms ease-in;
+  transition: 200ms ease-in;
 }
 
 .fade-enter-from,
