@@ -14,14 +14,24 @@ onBeforeMount(() => {
   store.dispatch('getDogImages');
 });
 
+// true or false for error message
+const errorMessage = computed(() => store.state.errorMessage);
+
 // `dogImages` store state as computed property
 const dogImages = computed(() => store.state.dogImages);
 
-// error message
-const errorMessage = computed(() => store.state.errorMessage)
+/** search logic */
+  // get `searchText` from the store
+const searchText = computed(() => store.state.searchText);
 
-function getDogName(imgSrc) {
-  return imgSrc.split("/")[4];
+  // the 100 images currently present on the page
+const selectedDogImages = computed(() => store.getters.selectedDogImages);
+
+  // filter out dogs based onthe value of `searchText`
+function filteredImages() {
+  return selectedDogImages.value.filter(breed =>
+    breed.name.toLowerCase().includes(searchText.value.toLowerCase())
+  );
 };
 </script>
 
@@ -31,22 +41,20 @@ function getDogName(imgSrc) {
 
     <section class="wrap">
       <DogItem 
-        v-for="(dogImage, index) in dogImages"
+        v-for="(dog, index) in filteredImages()"
         :key="index"
-        :imgAlt="getDogName(dogImage)"
-        :imgSrc="dogImage"
+        :dog="dog"
       />
     </section>
   </section>
   
   <Transition name="fade" mode="in-out">
-    <LoadingIndicator  v-if="dogImages.length < 1" />
+    <LoadingIndicator v-if="dogImages.length < 1 && !errorMessage" />
   </Transition>
 
-  
-  <section v-if="errorMessage">
-    <ErrorComponent />
-  </section>
+  <Transition name="fade" mode="in-out">
+    <ErrorComponent v-if="errorMessage"/>
+  </Transition>
 </template>
 
 <style lang="scss" scoped>
@@ -63,8 +71,14 @@ function getDogName(imgSrc) {
 
 .wrap {
   display: grid;
-  gap: min(5vw, 3.5rem);
+  gap: min(5vw, 5rem);
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  padding: 0 1.25rem;
+  padding: 0 5vw;
+}
+
+@media (min-width: 640px) {
+  .wrap {
+    padding: 0 10vw 5vw;
+  }
 }
 </style>

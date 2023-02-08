@@ -1,30 +1,37 @@
 <script setup>
-/** Props */
+import { useStore } from "vuex";
 
+// props
 const props = defineProps({
-  imgAlt: {
-    type: String,
-    required: true
-  },
-  imgSrc: {
-    type: String,
+  dog: {
+    type: Object,
     required: true
   }
 });
+
+// store instance
+const store = useStore();
+
+// mutate `currentDogImg`, i.e. set the current img src to the clicked image
+function setCurrentDogImg(src) {
+  store.commit('setCurrentDogImg', src);
+};
 </script>
 
 <template>
-  <section class="dog">
-    <div class="dog__wrap">
-      <img :src="imgSrc" :alt="imgAlt">
-    </div>
-    
-    <span class="dog__info">More info
-      <span class="scroll">
-        <span>→</span>
-        <span>→</span>
+  <section class="dog" @click="setCurrentDogImg(dog.src)">
+    <router-link :to="{ name: 'dogDetails', params: { dogBreed: dog.name }}">
+      <div class="dog__wrap">
+        <img :src="dog.src" :alt="`image of ${dog.name}`" loading="lazy">
+      </div>
+      
+      <span class="dog__info">More info
+        <span class="scroll">
+          <span>→</span>
+          <span>→</span>
+        </span>
       </span>
-    </span>
+    </router-link>
   </section>
 </template>
 
@@ -40,6 +47,7 @@ const props = defineProps({
 };
 
 .dog {
+  background-color: rgba($color: $darkGrey, $alpha: 0.15);
   border-radius: 0.5rem;
   height: 20rem;
   overflow: hidden;
@@ -48,7 +56,7 @@ const props = defineProps({
   &__wrap {
     height: 100%;
     position: relative;
-    transition: 300ms ease-in;
+    transition: 200ms ease-in;
     width: 100%;
 
     &::after {
@@ -57,10 +65,10 @@ const props = defineProps({
       height: 100%;
       left: 0;
       position: absolute;
+      top: 0;
       transform: scaleY(0);
       transform-origin: bottom;
-      transition: transform 300ms ease-in;
-      top: 0;
+      transition: transform 200ms ease-in;
       width: 100%;
     }
 
@@ -80,8 +88,9 @@ const props = defineProps({
     left: 50%;
     opacity: 0;
     position: absolute;
-    transform: translate(-50%, -50%);
     top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
 
     .scroll {
       display: flex;
@@ -92,7 +101,7 @@ const props = defineProps({
       width: 1.25rem;
 
       span {
-        animation: slideLeft 1500ms cubic-bezier(0.18, 0.89, 0.32, 1.28) infinite;
+        animation: slideLeft 950ms cubic-bezier(0.18, 0.89, 0.32, 1.28) infinite;
         padding: 0 0.25rem;
       }
     }
@@ -112,8 +121,9 @@ const props = defineProps({
 
     .dog__info {
       opacity: 1;
-      transition: 300ms ease-in;
-      transition-delay: 300ms;
+      transition: 200ms ease-in;
+      transition-delay: 200ms;
+      z-index: 10;
     }
   } 
 }

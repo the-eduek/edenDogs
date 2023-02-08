@@ -1,17 +1,29 @@
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-defineProps({
-  msg: String,
+// store instance
+const store = useStore();
+
+//two way computed property for the search text
+const searchText = computed({
+  get() {
+    return store.state.searchText;
+  },
+  set(newValue) {
+    store.commit('updateSearchText', newValue);
+  }
 });
-
-const count = ref(0)
 </script>
 
 <template>
   <section class="search">
     <div class="search__text">
-      <input type="search" placeholder="Search for a dog breed" name="" id="">
+      <input
+        placeholder="Search for a dog breed..."
+        type="search"
+        v-model="searchText"
+      >
 
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="search__icon">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -24,7 +36,7 @@ const count = ref(0)
 @import '../assets/styles/variables';
 
 .search {
-  padding: 1.25rem;
+  padding: 1.25rem 5vw;
 
   &__text {
     border-radius: 0.5rem;
@@ -54,6 +66,13 @@ const count = ref(0)
     position: absolute;
     width: 1.25rem;
     top: calc(50% - 0.625rem);
+  }
+}
+
+
+@media (min-width: 640px) {
+  .search {
+    padding: 2.5vw 10vw;
   }
 }
 </style>
