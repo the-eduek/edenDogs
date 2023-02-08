@@ -46,6 +46,8 @@ function filteredImages() {
         :dog="dog"
       />
     </section>
+
+    <p class="info-text" v-if="filteredImages().length === 0">No such dogs 🐶</p>
   </section>
   
   <Transition name="fade" mode="in-out">
@@ -74,6 +76,13 @@ function filteredImages() {
   gap: min(5vw, 5rem);
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   padding: 0 5vw;
+}
+
+.info-text {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 5vw 0 0;
+  text-align: center;
 }
 
 @media (min-width: 640px) {

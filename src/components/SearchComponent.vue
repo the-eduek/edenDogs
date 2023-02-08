@@ -64,15 +64,15 @@ const searchText = computed({
     height: 1.25rem;
     left: 0.25rem;
     position: absolute;
-    width: 1.25rem;
     top: calc(50% - 0.625rem);
+    width: 1.25rem;
   }
 }
 
 
 @media (min-width: 640px) {
   .search {
-    padding: 2.5vw 10vw;
+    padding: 5vw 10vw 2.5vw;
   }
 }
 </style>
