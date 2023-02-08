@@ -37,7 +37,11 @@
             </g>
           </g>
         </svg>
-      </div>      
+      </div>  
+      
+      <div class="load__text">
+        <p>Loading...</p>
+      </div>
     </div>
   </section>
 </template>
@@ -76,7 +80,15 @@
   }
 
   &__svg {
-    animation: enlarge 1000ms ease-in infinite alternate;
+    animation: enlarge 700ms ease-in infinite alternate;
+  }
+
+  &__text {
+    font-size: min(2.5rem, 5vw);
+    padding: 25rem 0 0;;
+    position: absolute;
+    text-align: center;
+    width: max-content;
   }
 }
 </style>

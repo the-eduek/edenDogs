@@ -53,10 +53,10 @@
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(0%);
+    padding: -5rem 0 0;
   } to {
     opacity: 1;
-    transform: translateY(300%);
+    padding: 25rem 0 0;
   }
 }
 
@@ -86,10 +86,11 @@
   &__text {
     animation: fade-in 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) 1 forwards;
     color: maroon;
-    font-size: 5vw;
+    font-size: min(2.5rem, 5vw);
     position: absolute;
     text-align: center;
     z-index: -1;
+    width: max-content;
   }
 }
 </style>
