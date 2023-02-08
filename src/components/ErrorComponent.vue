@@ -1,7 +1,7 @@
 <template>
-  <section class="load">
-    <div class="load__wrap">
-      <div class="load__svg">
+  <section class="error">
+    <div class="error__wrap">
+      <div class="error__svg">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="165px" height="170px" viewBox="0 0 165 170" enable-background="new 0 0 165 170" xml:space="preserve">
           <g id="Page-1">
             <g id="Group-2-Copy-2">
@@ -37,7 +37,12 @@
             </g>
           </g>
         </svg>
-      </div>      
+      </div>
+
+      <div class="error__text">
+        <p>Oops, sorry 🐶</p>
+        <p>There's been an error</p>
+      </div>
     </div>
   </section>
 </template>
@@ -45,15 +50,17 @@
 <style lang="scss" scoped>
 @import '../assets/styles/variables';
 
-@keyframes enlarge {
+@keyframes fade-in {
   from {
-    transform: scale(0.95);
-  } to {    
-    transform: scale(1.05);
+    opacity: 0;
+    transform: translateY(0%);
+  } to {
+    opacity: 1;
+    transform: translateY(300%);
   }
 }
 
-.load {
+.error {
   background-color: rgba($color: $darkGrey, $alpha: 0.15);
   border-radius: 50%;
   left: 50%;
@@ -72,11 +79,17 @@
     height: 10rem;
     justify-content: center;
     padding: 2rem;
+    position: relative;
     width: 11rem;
   }
 
-  &__svg {
-    animation: enlarge 1000ms ease-in infinite alternate;
+  &__text {
+    animation: fade-in 1000ms cubic-bezier(0.075, 0.82, 0.165, 1) 1 forwards;
+    color: maroon;
+    font-size: 5vw;
+    position: absolute;
+    text-align: center;
+    z-index: -1;
   }
 }
 </style>

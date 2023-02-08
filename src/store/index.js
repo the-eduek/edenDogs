@@ -7,27 +7,36 @@ const store = createStore({
       currentDogImg: '',
       dogImages: [],
       dogBreedsList: [],
-      hasLoaded: false
+      errorMessage: false
     }
   },
   mutations: {
     setCurrentDogImg(state, imgSrcString) {
       state.currentDogImg = imgSrcString;
     },
-    setdogImages(state, dogImagesList) {
+    setDogImages(state, dogImagesList) {
       state.dogImages = dogImagesList;
     },
+    setDogBreedsList(state, breedsList) {
+      state.dogBreedsList = breedsList;
+    },
+    setErrorMessage(state) {
+      state.errorMessage = true;
+    }
   },
   actions: {
-    async getDogImages ({ commit, state }) { 
-      const imageUrl = 'https://dog.ceo/api/breeds/image/random/50';
-      const response = await Promise.all([
-        fetchDogs(imageUrl),
-        fetchDogs(imageUrl)
-      ]);
-
-      const dataList = response.flat();
-      commit('setdogImages', dataList);
+    async getDogImages ({ commit, state }) {
+      try {
+        const imageUrl = 'https://dog.ceo/api/breeds/image/random/50';
+        const response = await Promise.all([
+          fetchDogs(imageUrl),
+          fetchDogs(imageUrl)
+        ]);
+        const dataList = response.flat();
+        commit('setDogImages', dataList);        
+      } catch (error) {
+        commit('setErrorMessage');        
+      }   
     }
   }
 });
