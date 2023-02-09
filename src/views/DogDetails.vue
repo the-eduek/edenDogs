@@ -15,7 +15,7 @@ const props = defineProps({
 const store = useStore();
 
 // get the img src for the passed down image
-const currentDogImg = computed(() => store.state.currentDogImg)
+const currentDogImg = computed(() => store.state.currentDogImg);
 
 // if breed name contains "-", it means that dog has a sub breed
 // this function splits the string and returns it as `a/an subbreed breed`
@@ -143,18 +143,20 @@ function previousPage() {
 
     &__wrap {
       flex-direction: row;
+      flex-wrap: nowrap;
     }
 
     &__img {
-      height: 50vh;
-      width: 50vw;
+      min-height: 50vh;
+      width: 65%;
     }
 
     &__text {
+      border-width: 0 0 0 1px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border-width: 0 0 0 1px;
+      width: 35%;
     }
   }  
 }

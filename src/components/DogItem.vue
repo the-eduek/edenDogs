@@ -133,4 +133,24 @@ function setCurrentDogImg(src) {
     }
   } 
 }
+
+@media (min-width: 768px) {
+  .dog {
+    &__wrap {
+      &::after {
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+    }
+
+    &:hover {
+      .dog__wrap {
+        &::after {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+      }
+    }
+  }
+}
 </style>
