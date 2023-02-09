@@ -1,7 +1,9 @@
-## Frontend Engineer Work Sample I, edenDogs.
+## Frontend Engineer Work Sample 1, edenDogs.
 
 **Author**: Eduek Akpan-Nyah.
+
 **Stack**: Vue.js + Vuex, SCSS,.
+
 **Demo**: [edendogs.netlify.app](https://).
 
 This repo contains my solution to [the Eden work sample](https://edenlife.notion.site/Frontend-Engineer-Work-Sample-1-265adac57014497288db619cab014a79). 
@@ -23,9 +25,9 @@ For this, I have built edenDogs, an SPA that consumes [https://dog.ceo/dog-api/]
 
 - Images are lazy loaded at browser level, using the `loading = 'lazy'` property on images and a custom `lazyload` directive
 
-- Client-side caching to avoid multiple round trips to the server API.
+- Client-side caching. The dog breed list is stored locally.
 
-- The application is responsive..
+- The application is responsive.
 
 - The codebase is be component-based, clean, maintainable and reusable.
 

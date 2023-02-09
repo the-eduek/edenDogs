@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 // store instance
@@ -11,8 +11,25 @@ const searchText = computed({
     return store.state.searchText;
   },
   set(newValue) {
+    // let updatedValue = newValue.split(" ").reverse().join('-');
     store.commit('updateSearchText', newValue);
   }
+});
+
+// display breed options logic
+  // `dogBreedsList` from store
+const dogBreedsList = computed(() => store.state.dogBreedsList);
+
+  // if the breeds list is cached, update the store
+  // else fetch rthe breed and then cache it
+onMounted(() => {
+  if (localStorage.getItem('breed')) {
+    const breedList = localStorage.getItem('breed').split(',');
+    store.commit("setDogBreedsList", breedList);
+  } else {
+    store.dispatch('getDogBreedsList');
+    localStorage.setItem('breed', dogBreedsList.value)
+  };
 });
 </script>
 

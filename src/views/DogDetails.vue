@@ -1,7 +1,8 @@
 <script setup>
-import { computed } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import router from "../router";
+import fetchDogs from "../assets/functions/fetchDogs";
 
 // props
 const props = defineProps({
@@ -28,9 +29,24 @@ function getSubBreed(dogBreed) {
 };
 
 // back page logic
+const router = useRouter();
+
 function previousPage() {
   router.go(-1);
 };
+
+
+// Sshow image 
+const route = useRoute();
+
+const src = ref('');
+
+onBeforeMount(async () => {
+  if (!currentDogImg?.value) {
+    const dogBreed = route.params.dogBreed;
+    src.value = await fetchDogs(`https://dog.ceo/api/breed/${dogBreed}/images/random`);
+  }
+});
 </script>
 
 <template>
@@ -44,7 +60,8 @@ function previousPage() {
 
     <div class="details__wrap">
       <div class="details__img">
-        <img :src="currentDogImg" :alt="`image of ${dogBreed}`">
+        <img :src="currentDogImg" :alt="`image of ${dogBreed}`" v-if="currentDogImg">
+        <img :src="src" :alt="`image of ${dogBreed}`" v-else>
       </div>
 
       <div class="details__text">

@@ -62,6 +62,7 @@
     color: $green;
     font-size: 2rem;
     font-weight: 500;
+    letter-spacing: -1px;
     padding: 0 0 0 0.5rem;
   }
 }

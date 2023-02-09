@@ -5,6 +5,7 @@ const store = createStore({
   state() {
     return {
       currentDogImg: "",
+      dogBreedsList: [],
       dogImages: [],
       errorMessage: false,
       searchText: ''
@@ -24,6 +25,9 @@ const store = createStore({
     setCurrentDogImg(state, imgSrcString) {
       state.currentDogImg = imgSrcString;
     },
+    setDogBreedsList(state, breedsList) {
+      state.dogBreedsList = breedsList;
+    },
     setDogImages(state, dogImagesList) {
       state.dogImages = dogImagesList;
     },
@@ -35,7 +39,7 @@ const store = createStore({
     }
   },
   actions: {
-    async getDogImages ({ commit }) {
+    async getDogImages({ commit }) {
       try {
         const imageUrl = "https://dog.ceo/api/breeds/image/random/50";
         const response = await Promise.all([
@@ -43,10 +47,26 @@ const store = createStore({
           fetchDogs(imageUrl)
         ]);
         const dataList = response.flat();
-        commit("setDogImages", dataList);        
+        commit("setDogImages", dataList);
       } catch (error) {
         commit("setErrorMessage");
       }   
+    },
+    async getDogBreedsList ({ commit, state }) {
+      try {
+        const responseData = await fetchDogs('https://dog.ceo/api/breeds/list/all');
+        const dataList = [];
+        for (const [breed, subBreed] of Object.entries(responseData)) {
+          if (subBreed.length > 0) {
+            subBreed.forEach(sub => { 
+              dataList.push(`${sub} ${breed}`)
+            });
+          } else dataList.push(breed);          
+        };
+        commit("setDogBreedsList", dataList);
+      } catch (error) {
+        console.error(error)
+      }; 
     }
   }
 });
