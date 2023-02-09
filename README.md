@@ -1,7 +1,36 @@
-# Vue 3 + Vite
+## Frontend Engineer Work Sample I, edenDogs.
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**Author**: Eduek Akpan-Nyah.
+**Stack**: Vue.js + Vuex, SCSS,.
+**Demo**: [edendogs.netlify.app](https://).
 
-## Recommended IDE Setup
+This repo contains my solution to [the Eden work sample](https://edenlife.notion.site/Frontend-Engineer-Work-Sample-1-265adac57014497288db619cab014a79). 
+For this, I have built edenDogs, an SPA that consumes [https://dog.ceo/dog-api/](https://dog.ceo/dog-api/) and uses the returned data to render the app.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Features
+- Users are able to see a list of at least 100 dog images by default when they load the application.
+
+- Users can click on a dog image and be routed to a page where there’s more information about the dog
+
+- Users are be able to search for a dog breed with a search box and dog breeds that match the search criteria are displayed .
+
+
+
+### Technical Requirements
+- The application uses **vuex** for state management
+
+- A loading indicator that lets users know the images are being loaded. it also reports when an error has been encountered
+
+- Images are lazy loaded at browser level, using the `loading = 'lazy'` property on images
+
+- Client-side caching to avoid multiple round trips to the server API.
+
+- The application is responsive..
+
+- The codebase should be component-based, clean, maintainable and reusable. for instance, one component is responsible for information on loading
+
+- The application should have a very neat and decent UI.
+
+- The application is hosted on Netlify. 
+
+- The code is hosted on GitHub and git commits show my progress in building the application.
