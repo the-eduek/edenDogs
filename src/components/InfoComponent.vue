@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 // play/pause an animation if there is/isn't an error 
-const animationState = computed(() => props.isError ? `paused` : `play`);
+const animationState = computed(() => props.isError ? `paused` : `running`);
 </script>
 
 <template>

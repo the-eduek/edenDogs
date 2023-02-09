@@ -43,14 +43,16 @@ function filteredImages() {
     </div>
 
     <section class="home__main">
-      <DogItem 
-        v-for="(dog, index) in filteredImages()"
-        :key="index"
-        :dog="dog"
-      />
+      <TransitionGroup name="slideDown">
+        <DogItem 
+          v-for="(dog, index) in filteredImages()"
+          :key="index"
+          :dog="dog"
+        />
+      </TransitionGroup>
     </section>
 
-    <p class="info-text" v-if="filteredImages().length === 0">No such dogs 🐶</p>
+    <p :class="[ 'text', { 'text--invisible': filteredImages().length === 0 }]">No such dogs 🐶</p>
   </section>
   
   <Transition name="fade" mode="in-out">
@@ -69,10 +71,11 @@ function filteredImages() {
 </template>
 
 <style lang="scss" scoped>
-
 .fade-enter-active,
-.fade-leave-active {
-  transition: 200ms ease-in;
+.fade-leave-active,
+.slideDown-enter-active,
+.slideDown-leave-active {
+  transition: all 300ms ease-in;
 }
 
 .fade-enter-from,
@@ -80,6 +83,11 @@ function filteredImages() {
   opacity: 0;
 }
 
+.slideDown-enter-from,
+.slideDown-leave-to {
+  opacity: 0;
+  transform: translateY(2rem);
+}
 
 .home {
   &__header {
@@ -94,11 +102,23 @@ function filteredImages() {
 
   }
 
-  .info-text {
+  .text {
     font-size: 1.25rem;
     font-weight: 500;
+    left: 50%;
+    opacity: 0;
     padding: 5vw 0 0;
+    position: fixed;
     text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 300ms ease-in;
+    width: 100%;
+    z-index: -1;
+
+    &--invisible {
+      opacity: 1;
+    }
   }
 }
 
@@ -108,7 +128,7 @@ function filteredImages() {
       align-items: center;
       display: flex;
       justify-content: space-between;
-      padding: 5vw 10vw 2.5vw;
+      padding: 5vw 10vw 3.5vw;
     }
 
     &__main {

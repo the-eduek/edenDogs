@@ -26,7 +26,7 @@ function setCurrentDogImg(src) {
       </div>
       
       <span class="dog__info">More info
-        <span class="scroll">
+        <span class="right">
           <span>→</span>
           <span>→</span>
         </span>
@@ -48,6 +48,7 @@ function setCurrentDogImg(src) {
 
 .dog {
   background-color: rgba($color: $darkGrey, $alpha: 0.15);
+  border: 1px solid rgba($color: $darkGrey, $alpha: 0.15);;
   border-radius: 0.5rem;
   height: 20rem;
   overflow: hidden;
@@ -92,12 +93,11 @@ function setCurrentDogImg(src) {
     transform: translate(-50%, -50%);
     z-index: -1;
 
-    .scroll {
+    .right {
       display: flex;
       justify-content: flex-end;
       margin: 0 0 0 0.5rem;
       overflow: hidden;
-      position: relative;
       width: 1.25rem;
 
       span {

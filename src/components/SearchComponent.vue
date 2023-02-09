@@ -70,7 +70,7 @@ const searchText = computed({
 
 @media (min-width: 640px) {
   .search {
-    width: 60%;
+    width: 55%;
   }
 }
 </style>
