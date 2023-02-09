@@ -36,3 +36,8 @@ For this, I have built edenDogs, an SPA that consumes [https://dog.ceo/dog-api/]
 - The application is hosted on Netlify. 
 
 - The code is hosted on GitHub and git commits show my progress in building the application.
+
+
+
+### Improvements
+- The search feature could also include breed options 
