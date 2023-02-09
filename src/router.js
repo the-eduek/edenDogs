@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 /** import all views (pages) */
 import HomePage from './views/HomePage.vue';
@@ -6,7 +6,7 @@ import DogDetails from './views/DogDetails.vue';
 
 /** router instance */
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/",
