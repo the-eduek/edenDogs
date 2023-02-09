@@ -36,8 +36,6 @@ const searchText = computed({
 @import '../assets/styles/variables';
 
 .search {
-  padding: 1.25rem 5vw;
-
   &__text {
     border-radius: 0.5rem;
     overflow: hidden;
@@ -70,10 +68,9 @@ const searchText = computed({
   }
 }
 
-
 @media (min-width: 640px) {
   .search {
-    padding: 5vw 10vw 2.5vw;
+    width: 60%;
   }
 }
 </style>

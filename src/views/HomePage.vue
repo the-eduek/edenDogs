@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
+import BrandLogo from '../components/BrandLogo.vue';
 import DogItem from '../components/DogItem.vue';
 import InfoComponent from '../components/InfoComponent.vue';
 import SearchComponent from '../components/SearchComponent.vue';
@@ -35,10 +36,13 @@ function filteredImages() {
 </script>
 
 <template>
-  <section v-if="dogImages.length > 0">
-    <SearchComponent />
+  <section class="home" v-if="dogImages.length > 0">
+    <div class="home__header">
+      <BrandLogo />
+      <SearchComponent />
+    </div>
 
-    <section class="wrap">
+    <section class="home__main">
       <DogItem 
         v-for="(dog, index) in filteredImages()"
         :key="index"
@@ -76,23 +80,40 @@ function filteredImages() {
   opacity: 0;
 }
 
-.wrap {
-  display: grid;
-  gap: min(5vw, 5rem);
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  padding: 0 5vw;
-}
 
-.info-text {
-  font-size: 1.25rem;
-  font-weight: 500;
-  padding: 5vw 0 0;
-  text-align: center;
+.home {
+  &__header {
+    padding: 1.25rem 5vw;
+  }
+
+  &__main {
+    display: grid;
+    gap: min(5vw, 5rem);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    padding: 0 5vw;
+
+  }
+
+  .info-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 5vw 0 0;
+    text-align: center;
+  }
 }
 
 @media (min-width: 640px) {
-  .wrap {
-    padding: 0 10vw 5vw;
+  .home {
+    &__header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 5vw 10vw 2.5vw;
+    }
+
+    &__main {
+      padding: 0 10vw 5vw;
+    }
   }
 }
 </style>
