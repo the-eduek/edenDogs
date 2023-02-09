@@ -21,15 +21,15 @@ For this, I have built edenDogs, an SPA that consumes [https://dog.ceo/dog-api/]
 
 - A loading indicator that lets users know the images are being loaded. it also reports when an error has been encountered
 
-- Images are lazy loaded at browser level, using the `loading = 'lazy'` property on images
+- Images are lazy loaded at browser level, using the `loading = 'lazy'` property on images and a custom `lazyload` directive
 
 - Client-side caching to avoid multiple round trips to the server API.
 
 - The application is responsive..
 
-- The codebase should be component-based, clean, maintainable and reusable. for instance, one component is responsible for information on loading
+- The codebase is be component-based, clean, maintainable and reusable.
 
-- The application should have a very neat and decent UI.
+- The application has a very neat and decent UI.
 
 - The application is hosted on Netlify. 
 

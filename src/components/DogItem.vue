@@ -1,5 +1,7 @@
 <script setup>
+import { resolveDirective } from "vue";
 import { useStore } from "vuex";
+import lazyLoad from '../assets/functions/lazyLoad';
 
 // props
 const props = defineProps({
@@ -21,8 +23,12 @@ function setCurrentDogImg(src) {
 <template>
   <section class="dog" @click="setCurrentDogImg(dog.src)">
     <router-link :to="{ name: 'dogDetails', params: { dogBreed: dog.name }}">
-      <div class="dog__wrap">
-        <img :src="dog.src" :alt="`image of ${dog.name}`" loading="lazy">
+      <div class="dog__wrap" v-lazyLoad>
+        <img
+          :data-src="dog.src" 
+          :alt="`image of ${dog.name}`" 
+          loading="lazy"
+        >
       </div>
       
       <span class="dog__info">More info
