@@ -4,7 +4,7 @@
 
 **Stack**: Vue.js + Vuex, SCSS,.
 
-**Demo**: [edendogs.netlify.app](https://).
+**Demo**: [theedendogs.netlify.app](https://theedendogs.netlify.app).
 
 This repo contains my solution to [the Eden work sample](https://edenlife.notion.site/Frontend-Engineer-Work-Sample-1-265adac57014497288db619cab014a79). 
 For this, I have built edenDogs, an SPA that consumes [https://dog.ceo/dog-api/](https://dog.ceo/dog-api/) and uses the returned data to render the app.
